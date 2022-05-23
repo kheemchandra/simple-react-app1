@@ -1,0 +1,39 @@
+.form{
+  border: 1px solid #333;
+  margin: 30px auto;
+  width: 600px;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  background: white;
+}
+
+.form-control{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-control > label{
+  font-weight: bold;
+}
+.form-control > input{
+  border: 1px solid #ccc;
+  outline: none;
+  height: 20px;
+}
+
+.form > button{
+  width: 100px;
+  background-color: rgb(98, 4, 98);
+  border: none;
+  outline: none;
+  padding: 5px 8px;
+  color: white;
+
+  cursor: pointer;
+}
+
