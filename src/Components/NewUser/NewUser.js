@@ -1,60 +1,48 @@
 import React, { useState } from "react";
 
 import Modal from '../Modal/Modal';
+
 import styles from "./NewUser.module.css";
-import styles1 from "../Modal/Modal.module.css";
 
-let singleCls = styles1["modal-wrapper"];
-let doubleCls = styles1["modal-wrapper"] + " " + styles1["hide"];
-//              show        hide  
-const clses = [singleCls, doubleCls];
+import st from "../Modal/Modal.module.css";
 
-let foreign = null;
+let singleCls = st["modal-wrapper"];
+let doubleCls = st["modal-wrapper"] + " " + st["hide"];
+ 
 
 const NewUser = (props) => {
   const[message, setMessage] = useState('');
-  const[clsName, setClsName] = useState(doubleCls);
-  let text = '';
+  const[clsName, setClsName] = useState(doubleCls); 
 
-  const nameChange = (arr) => {
-    // arr.func(arr.val);
-    foreign = arr.func;
+  const toggleClass = () => { 
     setClsName(doubleCls);
   };
-  const submitUser = (event) => {
-    
+  const submitUser = (event) => {    
     event.preventDefault();
+
     let name = event.target.elements['username'].value.trim();
     let age = event.target.elements['userage'].value;
-    let text = '';
-    let error = false;
+    let text = ''; 
+    
     if(!name || !age){
       text = 'Please enter a valid name and age (non-empty values).';
-      error = true;
     }
     else if(+age < 1){
       text = 'Please enter a valid age (>0).';
-      error = true;
     }
     setMessage(text);
-    if(!error){
+    if(!text){
+      event.target.reset();
       props.addUserHandler({name:name, age: age});
     }else{
-      setClsName(singleCls);
-      if(foreign)foreign(singleCls);
+      setClsName(singleCls); 
     }
   };
+ 
 
-  
-  // let clsName = (message) ? clses[0] : clses[1];
-
-  
-
-  let content = <p></p>;
-  if(message)content = <Modal nameChange={nameChange} className={clsName}>{message}</Modal>;
-  // let content = <Modal nameChange={nameChange} className={clsName}>{message}</Modal>;
-
-  
+  let content = null;
+  if(message)content = <Modal toggleClass={toggleClass} className={clsName}>{message}</Modal>;
+   
   return (
     <div>
       {content}

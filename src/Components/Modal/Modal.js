@@ -1,23 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 
 import styles from "./Modal.module.css";
 
-let singleCls = styles["modal-wrapper"];
-let doubleCls = styles["modal-wrapper"] + " " + styles["hide"];
 
-
-
-const Modal = (props) => {
-  const [clsName, setClsName] = useState(props.className);
-  
+const Modal = (props) => { 
   const changeCls = function () {
-    props.nameChange({'func': setClsName, 'val': doubleCls});
-    setClsName(doubleCls);
+    props.toggleClass();
   }; 
   
 
   return (
-    <div onClick={changeCls} className={clsName}>
+    <div onClick={changeCls} className={props.className}>
       <div
         onClick={(e) => {
           e.stopPropagation();
