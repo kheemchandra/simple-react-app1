@@ -2,37 +2,35 @@ import React, { useState } from "react";
 
 import styles from "./Modal.module.css";
 
+let singleCls = styles["modal-wrapper"];
+let doubleCls = styles["modal-wrapper"] + " " + styles["hide"];
+
+
+
 const Modal = (props) => {
-  const [clsName, setClsName] = useState("");
-
+  const [clsName, setClsName] = useState(props.className);
+  
   const changeCls = function () {
-    setClsName((prevClsName) => {
-      return prevClsName ? "" : styles["hide"];
-    });
-  };
+    props.nameChange({'func': setClsName, 'val': doubleCls});
+    setClsName(doubleCls);
+  }; 
+  
 
-  if (props.children) {
-    // changeCls();
-
-    return (
+  return (
+    <div onClick={changeCls} className={clsName}>
       <div
-        id="modal-wrapper"
-        onClick={changeCls}
-        className={styles["modal-wrapper"] + " " + clsName}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className={styles["modal"]}
       >
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          className={styles["modal"]}
-        >
-          <h3>Invalid input</h3>
-          <p>{props.children}</p>
-          <button onClick={changeCls}>Okay</button>
-        </div>
+        <h3>Invalid input</h3>
+        <p>{props.children}</p>
+        <button onClick={changeCls}>Okay</button>
       </div>
-    );
-  } else return null;
+    </div>
+  );
+    
 };
 
 export default Modal;
